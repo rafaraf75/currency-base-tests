@@ -41,4 +41,20 @@ describe('Component ResultBox', () => {
         cleanup();
     }
     });
+  it('should render the same values when from === to (PLN)', () => {
+    render(<ResultBox from="PLN" to="PLN" amount={123} />);
+    const output = screen.getByTestId('output');
+    expect(output).toHaveTextContent('PLN 123.00 = PLN 123.00');
+    });
+
+    it('should render the same values when from === to (USD)', () => {
+    render(<ResultBox from="USD" to="USD" amount={50} />);
+    const output = screen.getByTestId('output');
+    expect(output).toHaveTextContent('$50.00 = $50.00');
+    });
+  it('should render "Wrong value…" when amount is below zero', () => {
+    render(<ResultBox from="PLN" to="USD" amount={-5} />);
+    const output = screen.getByTestId('output');
+    expect(output).toHaveTextContent('Wrong value…');
+    });
 });
